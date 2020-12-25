@@ -216,7 +216,7 @@ public class TestMain{
 
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main8(String[] args) throws InterruptedException {
 
 
         List<Demo01> list = new ArrayList<Demo01>(10);
@@ -249,6 +249,6 @@ public class TestMain{
         System.out.println(list);
 
     }
-
+    
 
 }
