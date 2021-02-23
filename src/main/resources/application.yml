@@ -1,2 +1,27 @@
 server:
   port: 8080
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    one:
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/mysql?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
+      username: root
+      password: root
+    two:
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/sys?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
+      username: root
+      password: root
+  rabbitmq:
+    host: amqp-cn-oew20292n005.mq-amqp.cn-shanghai-867405-a.aliyuncs.com
+    port: 5672
+    virtual-host: mzy_demo_one
+    accKey: LTAI4G7kfEX76JEornF8v2w9
+    secKey: srNEKouDjEHHX1e0sqRpdUcPk6WGPP
+    instanceId: amqp-cn-oew20292n005
+    exchange.name: mzy_exchange_one
+    queue.name: mzy_queue_one
+    #queue.name: demo-dead-letter
+    routing.key: mzy
