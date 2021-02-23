@@ -34,5 +34,3 @@ build/
 
 *.mvn
 *.sample
-mvnw
-*.cmd
