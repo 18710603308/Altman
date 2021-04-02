@@ -1,0 +1,2 @@
+#org.springframework.context.ApplicationContextInitializer=\
+#com.mzy.mdc_log.TtlMDCAdapterInitializer

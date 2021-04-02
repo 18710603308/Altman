@@ -16,6 +16,7 @@ public class ApplicationListenerDemo implements ApplicationListener<ApplicationE
     private static final Logger  LOGGER = LoggerFactory.getLogger(ApplicationListenerDemo.class);
     @Override
     public void onApplicationEvent(ApplicationEventDemo applicationEventDemo) {
+        System.out.println("event str :" + applicationEventDemo.getStr());
         LOGGER.debug("event str :" + applicationEventDemo.getStr());
     }
 }
