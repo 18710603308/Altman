@@ -5,23 +5,15 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.mzy.event.ApplicationEventDemo;
-import com.mzy.service.SendMessageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * @Author Jack Miao
@@ -64,14 +56,14 @@ public class CacheController {
         return "1";
     }
 
-    @Autowired
+   /* @Autowired
     private SendMessageServiceImpl sendMessageService;
     @ResponseBody
     @RequestMapping("/sendMessageDemo")
     public void sendMessageDemo(HttpServletRequest request, HttpServletResponse response) throws IOException, TimeoutException {
         sendMessageService.sendMsgToAmqp("mzy" + new Date().toString());
         //sendMeaasgeService.receivedMsgToAmqp();
-    }
+    }*/
 
     @Autowired
     private ApplicationContext applicationContext;

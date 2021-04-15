@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class RabbitConfig {
 
-    @Value("${spring.rabbitmq.accKey}")
+    /*@Value("${spring.rabbitmq.accKey}")
     private String accKey;
     @Value("${spring.rabbitmq.secKey}")
     private String secKey;
@@ -58,7 +58,7 @@ public class RabbitConfig {
         factory.setShutdownTimeout(0);
         return factory;
     }
-
+*/
 
 
    /* @Bean

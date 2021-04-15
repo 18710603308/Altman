@@ -1,17 +1,16 @@
-package com.mzy.excel;
+package com.mzy.demo;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -41,7 +40,7 @@ public class XLSXCovertCSVReader {
      * The type of the data value is indicated by an attribute on the cell. The
      * value is usually in a "v" element within the cell.
      */
-    enum xssfDataType {
+    enum XssfDataType {
         BOOL, ERROR, FORMULA, INLINESTR, SSTINDEX, NUMBER,
     }
 
@@ -72,7 +71,7 @@ public class XLSXCovertCSVReader {
 
         // Set when cell start element is seen;
         // used when cell close element is seen.
-        private xssfDataType nextDataType;
+        private XssfDataType nextDataType;
 
         // Used to format numeric cell values.
         private short formatIndex;
@@ -89,6 +88,14 @@ public class XLSXCovertCSVReader {
         private List<String[]> rows = new ArrayList<String[]>();
         private boolean isCellNull = false;
 
+        // 定义前一个元素和当前元素的位置，用来计算其中空的单元格数量，如A6和A8等
+        private String preRef = null, ref = null;
+        // 定义该文档一行最大的单元格数，用来补全一行最后可能缺失的单元格
+        private String maxRef = null;
+        /**
+         * 当前列
+         */
+        private int curCol = 0;
         /**
          * Accepts objects needed while parsing.
          *
@@ -104,7 +111,7 @@ public class XLSXCovertCSVReader {
             this.minColumnCount = cols;
             this.output = target;
             this.value = new StringBuffer();
-            this.nextDataType = xssfDataType.NUMBER;
+            this.nextDataType = XssfDataType.NUMBER;
             this.formatter = new DataFormatter();
             record = new String[this.minColumnCount];
             rows.clear();// 每次读取都清空行集合
@@ -128,6 +135,14 @@ public class XLSXCovertCSVReader {
             }
             // c => cell
             else if ("c".equals(name)) {
+                // 前一个单元格的位置
+                if (preRef == null) {
+                    preRef = attributes.getValue("r");
+                } else {
+                    preRef = ref;
+                }
+                // 当前单元格的位置
+                ref = attributes.getValue("r");
                 // Get the cell reference
                 String r = attributes.getValue("r");
                 int firstDigit = -1;
@@ -140,21 +155,21 @@ public class XLSXCovertCSVReader {
                 thisColumn = nameToColumn(r.substring(0, firstDigit));
 
                 // Set up defaults.
-                this.nextDataType = xssfDataType.NUMBER;
+                this.nextDataType = XssfDataType.NUMBER;
                 this.formatIndex = -1;
                 this.formatString = null;
                 String cellType = attributes.getValue("t");
                 String cellStyleStr = attributes.getValue("s");
                 if ("b".equals(cellType)) {
-                    nextDataType = xssfDataType.BOOL;
+                    nextDataType = XssfDataType.BOOL;
                 } else if ("e".equals(cellType)) {
-                    nextDataType = xssfDataType.ERROR;
+                    nextDataType = XssfDataType.ERROR;
                 } else if ("inlineStr".equals(cellType)) {
-                    nextDataType = xssfDataType.INLINESTR;
+                    nextDataType = XssfDataType.INLINESTR;
                 } else if ("s".equals(cellType)) {
-                    nextDataType = xssfDataType.SSTINDEX;
+                    nextDataType = XssfDataType.SSTINDEX;
                 } else if ("str".equals(cellType)) {
-                    nextDataType = xssfDataType.FORMULA;
+                    nextDataType = XssfDataType.FORMULA;
                 } else if (cellStyleStr != null) {
                     // It's a number, but almost certainly one
                     // with a special style or format
@@ -254,12 +269,18 @@ public class XLSXCovertCSVReader {
                 if (thisStr == null || "".equals(isCellNull)) {
                     isCellNull = true;// 设置单元格是否为空值
                 }
+                // 补全单元格之间的空单元格
+                if (!ref.equals(preRef)) {
+                    int len = countNullCell(ref, preRef);
+                    for (int i = 0; i < len; i++) {
+                        record[thisColumn] = "";
+                    }
+                }
                 record[thisColumn] = thisStr;
                 // Update column
                 if (thisColumn > -1) {
                     lastColumnNumber = thisColumn;
                 }
-
             } else if ("row".equals(name)) {
 
                 // Print out any missing commas if needed
@@ -371,6 +392,55 @@ public class XLSXCovertCSVReader {
         return handler.getRows();
     }
 
+
+
+    /**
+     * 计算两个单元格之间的单元格数目(同一行)
+     *
+     * @param ref
+     * @param preRef
+     * @return
+     */
+    public int countNullCell(String ref, String preRef) {
+        // excel2007最大行数是1048576，最大列数是16384，最后一列列名是XFD
+        String xfd = ref.replaceAll("\\d+", "");
+        String xfd_1 = preRef.replaceAll("\\d+", "");
+
+        xfd = fillChar(xfd, 3, '@', true);
+        xfd_1 = fillChar(xfd_1, 3, '@', true);
+
+        char[] letter = xfd.toCharArray();
+        char[] letter_1 = xfd_1.toCharArray();
+        int res = (letter[0] - letter_1[0]) * 26 * 26 + (letter[1] - letter_1[1]) * 26 + (letter[2] - letter_1[2]);
+        return res - 1;
+    }
+
+
+    /**
+     * 字符串的填充
+     *
+     * @param str
+     * @param len
+     * @param let
+     * @param isPre
+     * @return
+     */
+    String fillChar(String str, int len, char let, boolean isPre) {
+        int len_1 = str.length();
+        if (len_1 < len) {
+            if (isPre) {
+                for (int i = 0; i < (len - len_1); i++) {
+                    str = let + str;
+                }
+            } else {
+                for (int i = 0; i < (len - len_1); i++) {
+                    str = str + let;
+                }
+            }
+        }
+        return str;
+    }
+
     /**
      * 初始化这个处理程序 将
      *
@@ -381,7 +451,7 @@ public class XLSXCovertCSVReader {
      */
     public List<String[]> process() throws IOException, OpenXML4JException,
             ParserConfigurationException, SAXException {
-        // 使用共享字符表,避免重复字符浪费大量内存
+
         ReadOnlySharedStringsTable strings = new ReadOnlySharedStringsTable(
                 this.xlsxPackage);
         XSSFReader xssfReader = new XSSFReader(this.xlsxPackage);
@@ -417,7 +487,6 @@ public class XLSXCovertCSVReader {
     public static List<String[]> readerExcel(String path, String sheetName, int minColumns) {
         OPCPackage p = null;
         try {
-            // 使用OPCPackage包装类压缩成Zip
             p = OPCPackage.open(path, PackageAccess.READ);
             XLSXCovertCSVReader xlsx2csv = new XLSXCovertCSVReader(p, System.out,
                     sheetName, minColumns);
@@ -487,23 +556,28 @@ public class XLSXCovertCSVReader {
 
     }
 
-//    public static void main(String[] args) throws Exception {
-//        List<String[]> list = XLSXCovertCSVReader
-//                .readerExcel(
-//                        "F:\\test.xlsx",
-//                        "Sheet1", 17);
-//        for (String[] record : list) {
-//            for (String cell : record) {
-//                System.out.print(cell + "  ");
-//            }
-//            System.out.println();
-//        }
-//    }
+    public static void main(String[] args) throws Exception {
+        List<String[]> list = XLSXCovertCSVReader
+                .readerExcel(
+                        //"E:\\philips-cos\\阶梯价模板\\阶梯价模板\\Funnel List_20210301-精简版.xlsx",
+                        "C:\\Users\\EDZ\\Desktop\\1.xlsx",
+                        "1", 19);
+        /*for (String[] record : list) {
+            for (String cell : record) {
+                System.out.print(cell + "  ");
+            }
+            System.out.println();
+        }*/
+       // System.out.println(list.size());
+        /*for (String s : list.get(list.size() - 2)) {
+            System.out.print(s + "-");
+        }*/
+        for (String[] strings : list) {
+            System.out.println(Arrays.toString(strings));
+            System.out.println(strings.length);
+        }
 
-    public static void main(String[] args) {
-        String path = "D:\\wx-file\\WeChat Files\\zhuoyang292861\\FileStorage\\File\\2021-04\\1.xlsx";
-        List<String[]> strings = XLSXCovertCSVReader.readerExcel(path, "1", 19);
-        System.out.println(strings.size());
+        System.out.println(list.size());
     }
 
 }

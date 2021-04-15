@@ -1,3 +1,4 @@
+/*
 package com.mzy.service;
 
 import com.rabbitmq.client.AMQP;
@@ -18,11 +19,13 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
+*/
 /**
  * @Author Jack Miao
  * @date 2021/1/13 21:53
  * @desc
- */
+ *//*
+
 @Service
 public class SendMessageServiceImpl {
 
@@ -50,7 +53,8 @@ public class SendMessageServiceImpl {
         LOGGER.info("Amqp send msg is : {}", message);
         Connection connection = null;
         try {
-            /*ConnectionFactory factory = new ConnectionFactory();
+            */
+/*ConnectionFactory factory = new ConnectionFactory();
             // 设置接入点
             factory.setHost(host);
             // 获取动态用户名密码
@@ -66,7 +70,8 @@ public class SendMessageServiceImpl {
             // 基于网络环境合理设置超时时间。
             factory.setConnectionTimeout(30 * 1000);
             factory.setHandshakeTimeout(30 * 1000);
-            factory.setShutdownTimeout(0);*/
+            factory.setShutdownTimeout(0);*//*
+
             connection = factory.newConnection();
             Channel channel = connection.createChannel();
             // 生成MessageId
@@ -95,15 +100,18 @@ public class SendMessageServiceImpl {
 
 
 
-    /**
+    */
+/**
      * @desc 消费MQ消息
-     */
+     *//*
+
     public void receivedMsgToAmqp() {
         //LOGGER.info("Amqp received msg is starting.");
         Connection connection = null;
         //Map<String, Object> resultMaps = new HashMap<>();
         try {
-            /*ConnectionFactory factory = new ConnectionFactory();
+            */
+/*ConnectionFactory factory = new ConnectionFactory();
             // 设置接入点，在RabbitMQ版控制台实例详情页面查看
             factory.setHost("amqp-cn-oew20292n005.mq-amqp.cn-shanghai-867405-a.aliyuncs.com");
             // ${instanceId}为实例ID，在RabbitMQ版控制台概览页面查看
@@ -119,7 +127,8 @@ public class SendMessageServiceImpl {
             factory.setPort(5672);
             factory.setConnectionTimeout(300 * 1000);
             factory.setHandshakeTimeout(300 * 1000);
-            factory.setShutdownTimeout(0);*/
+            factory.setShutdownTimeout(0);*//*
+
             connection = factory.newConnection();
             final Channel channel = connection.createChannel();
 
@@ -164,3 +173,4 @@ public class SendMessageServiceImpl {
         }
     }
 }
+*/
