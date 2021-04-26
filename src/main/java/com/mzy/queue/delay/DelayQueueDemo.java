@@ -16,6 +16,6 @@ public class DelayQueueDemo {
         DelayChiled delayChiled = new DelayChiled(3000 + System.currentTimeMillis());
 
         delayQueue.add(delayChiled);
-        System.out.println(delayQueue.take());
+        //System.out.println(delayQueue.take());
     }
 }

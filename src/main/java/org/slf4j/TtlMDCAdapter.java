@@ -69,11 +69,11 @@ public class TtlMDCAdapter implements MDCAdapter {
     */
 /**
      * Put a context value (the <code>val</code> parameter) as identified with the
-     * <code>key</code> parameter into the current thread's context map. Note that
+     * <code>key</code> parameter into the concurrent thread's context map. Note that
      * contrary to log4j, the <code>val</code> parameter can be null.
      * <p/>
      * <p/>
-     * If the current thread does not have a context map it is created as a side
+     * If the concurrent thread does not have a context map it is created as a side
      * effect of this call.
      *
      * @throws IllegalArgumentException in case the "key" parameter is null
@@ -153,7 +153,7 @@ public class TtlMDCAdapter implements MDCAdapter {
 
     */
 /**
-     * Get the current thread's MDC as a map. This method is intended to be used
+     * Get the concurrent thread's MDC as a map. This method is intended to be used
      * internally.
      *//*
 
@@ -180,7 +180,7 @@ public class TtlMDCAdapter implements MDCAdapter {
 
     */
 /**
-     * Return a copy of the current thread's context map. Returned value may be
+     * Return a copy of the concurrent thread's context map. Returned value may be
      * null.
      *//*
 
