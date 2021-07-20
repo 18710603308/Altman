@@ -1,16 +1,23 @@
 server:
   port: 8088
+##spring:
+##  jpa:
+##    show-sql: true
+##  datasource:
+##    one:
+##      driver-class-name: com.mysql.jdbc.Driver
+##      jdbc-url: jdbc:mysql://127.0.0.1:3306/mysql?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
+##      username: root
+##      password: root
+##    two:
+##      driver-class-name: com.mysql.jdbc.Driver
+##      jdbc-url: jdbc:mysql://127.0.0.1:3306/sys?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
+##      username: root
+##      password: root
+
 spring:
-  jpa:
-    show-sql: true
   datasource:
-    one:
-      driver-class-name: com.mysql.jdbc.Driver
-      jdbc-url: jdbc:mysql://127.0.0.1:3306/mysql?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
-      username: root
-      password: root
-    two:
-      driver-class-name: com.mysql.jdbc.Driver
-      jdbc-url: jdbc:mysql://127.0.0.1:3306/sys?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
-      username: root
-      password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    jdbc-url: jdbc:mysql://127.0.0.1:3306/mysql?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
+    username: root
+    password: root
