@@ -14,7 +14,7 @@ public class OneServiceImpl implements DemoService {
     @Autowired
     private DemoMapper demoMapper;
     @Override
-    public void upload(String str) {
+    public void upload(String str, Integer a) {
         demoMapper.demo();
         System.out.println(str);
     }

@@ -6,5 +6,5 @@ package com.altman.service;
  */
 public interface DemoService {
 
-    void upload(String str);
+    void upload(String str, Integer a);
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TwoServiceImpl implements DemoService {
     @Override
-    public void upload(String str) {
+    public void upload(String str, Integer b) {
         System.out.println(str);
     }
 }

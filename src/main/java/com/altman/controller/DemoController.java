@@ -38,7 +38,7 @@ public class DemoController {
         final InvocationHandler handler = new DemoHandler(demoService);
         DemoService service = (DemoService) Proxy.newProxyInstance(handler.getClass().getClassLoader(), demoService.getClass().getInterfaces(),
                 handler);
-        service.upload(flag);
+        service.upload(flag, 1);
     }
 
 }
