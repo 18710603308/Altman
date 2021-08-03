@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @Author Jack Miao
@@ -11,8 +12,9 @@ import org.springframework.context.annotation.ComponentScan;
  * @desc
  */
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.altman"})
-@MapperScan(basePackages = {"com.altman.mapper"})
+@ComponentScan(basePackages = {"com.altman","com.dy_name"})
+@MapperScan(basePackages = {"com.altman.mapper","com.dy_name.mapper"})
+@EnableScheduling
 public class DemoApplication {
 
 

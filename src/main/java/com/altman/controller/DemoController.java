@@ -41,6 +41,27 @@ public class DemoController {
         service.upload(flag, 1);
     }
 
+    public static void main(String[] args) {
+
+        Boolean flag = null;
+
+        if(Boolean.TRUE.equals(flag)){
+        }
+        System.out.println(">>>>>>>>>111");
+        if(flag){
+            System.out.println(">>>>>>>>>222");
+        }
+
+        /*boolean b1 = null;
+
+        Boolean b2 = null;
+
+        boolean f = true;
+
+        while (f){
+
+        }*/
+    }
 }
 
 

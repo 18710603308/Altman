@@ -18,12 +18,12 @@ import javax.sql.DataSource;
  * @date 2021/1/11 20:29
  * @desc
  */
-@Configuration
+//@Configuration
 @MapperScan(basePackages = "com.altman.mapper", sqlSessionFactoryRef = "sqlSessionFactory")
 public class DatasourceDemoConfig {
 
     @Bean(name = "dataSource")
-    @ConfigurationProperties(prefix = "spring.datasource")
+    //@ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource(){
         return DataSourceBuilder.create().build();
     }
