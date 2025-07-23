@@ -1,23 +1,17 @@
 server:
-  port: 8088
-##spring:
-##  jpa:
-##    show-sql: true
-##  datasource:
-##    one:
-##      driver-class-name: com.mysql.jdbc.Driver
-##      jdbc-url: jdbc:mysql://127.0.0.1:3306/mysql?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
-##      username: root
-##      password: root
-##    two:
-##      driver-class-name: com.mysql.jdbc.Driver
-##      jdbc-url: jdbc:mysql://127.0.0.1:3306/sys?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
-##      username: root
-##      password: root
+  port: 8080
 
 spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://127.0.0.1:3306/mysql?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
+  ai:
+    dashscope:
+      api-key: YOUR_DASHSCOPE_API_KEY
+      chat:
+        options:
+          model: qwen-turbo
+          temperature: 0.7
+    deepseek:
+      api-key: YOUR_DEEPSEEK_API_KEY
+      chat:
+        options:
+          model: deepseek-chat
+          temperature: 0.7 
