@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.ai.agent.model;
 
 public class MCPRequest {
     private String method;

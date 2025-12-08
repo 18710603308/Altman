@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.ai.agent.controller;
 
-import com.example.demo.model.MCPRequest;
-import com.example.demo.model.MCPResponse;
+import com.ai.agent.model.MCPRequest;
+import com.ai.agent.model.MCPResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

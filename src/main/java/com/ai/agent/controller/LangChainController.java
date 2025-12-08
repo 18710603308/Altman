@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.ai.agent.controller;
 
-import com.example.demo.langchain.MCPToolExecutor;
-import com.example.demo.service.MCPClientService;
+import com.ai.agent.langchain.MCPToolExecutor;
+import com.ai.agent.service.MCPClientService;
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.agent.tool.ToolExecutor;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;

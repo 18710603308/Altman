@@ -1,7 +1,7 @@
-package com.example.demo.service;
+package com.ai.agent.service;
 
-import com.example.demo.model.MCPRequest;
-import com.example.demo.model.MCPResponse;
+import com.ai.agent.model.MCPRequest;
+import com.ai.agent.model.MCPResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;

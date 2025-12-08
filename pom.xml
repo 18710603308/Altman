@@ -8,11 +8,11 @@
 		<version>3.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.ai</groupId>
+	<artifactId>agent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>agent</name>
+	<description>AI Agent with MCP Server and LangChain4j Client</description>
 	<url/>
 	<licenses>
 		<license/>

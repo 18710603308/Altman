@@ -4,7 +4,6 @@
 *.o
 *.obj
 *.out
-*.exe
 *.dll
 *.so
 *.a
@@ -14,26 +13,20 @@ target/
 .gradle/
 .mypy_cache/
 .pytest_cache/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
+node_modules/
 venv/
 .venv/
-.env
-.env.local
-*.env.*
-
-# Build directories
-build/
-dist/
-out/
+__pycache__/
 
 # Logs and temp files
 *.log
 *.tmp
 *.swp
-*.swo
+
+# Environment
+.env
+.env.local
+*.env.*
 
 # Editors
 .vscode/
@@ -43,12 +36,12 @@ out/
 .DS_Store
 Thumbs.db
 
-# Coverage
+# Coverage reports
 coverage/
 htmlcov/
 .coverage
 
-# Common compressed files
+# Compressed files
 *.zip
 *.gz
 *.tar

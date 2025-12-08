@@ -1,6 +1,6 @@
-package com.example.demo.langchain;
+package com.ai.agent.langchain;
 
-import com.example.demo.service.MCPClientService;
+import com.ai.agent.service.MCPClientService;
 import dev.langchain4j.agent.tool.Tool;
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.agent.tool.ToolExecutor;

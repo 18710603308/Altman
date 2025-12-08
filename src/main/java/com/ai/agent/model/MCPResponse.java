@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.ai.agent.model;
 
 public class MCPResponse {
     private String result;
