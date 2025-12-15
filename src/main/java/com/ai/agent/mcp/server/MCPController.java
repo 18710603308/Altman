@@ -1,5 +1,6 @@
 package com.ai.agent.mcp.server;
 
+import com.ai.agent.baidu.map.handler.BaiduMapMCPHandler;
 import com.ai.agent.mcp.server.model.MCPRequest;
 import com.ai.agent.mcp.server.model.MCPResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class MCPController {
 
     @Autowired
     private QwenService qwenService;
+    
+    @Autowired
+    private BaiduMapMCPHandler baiduMapMCPHandler;
 
     @PostMapping("/invoke")
     public MCPResponse invoke(@RequestBody MCPRequest request) {
@@ -36,6 +40,14 @@ public class MCPController {
                     return handleQwenEmbeddings(request, params);
                 case "health/check":
                     return handleHealthCheck(request);
+                // 百度地图相关方法
+                case "baidu/map/geocode":
+                case "baidu/map/reverse_geocode":
+                case "baidu/map/route":
+                case "baidu/map/search_nearby":
+                case "baidu/map/search_city":
+                case "baidu/map/weather":
+                    return baiduMapMCPHandler.handle(request).block();
                 default:
                     return new MCPResponse(request.getId(), 
                         new MCPResponse.ErrorDetails("METHOD_NOT_FOUND", "Method not supported: " + method));

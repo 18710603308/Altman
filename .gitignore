@@ -6,19 +6,15 @@
 *.out
 # Dependencies
 target/
-.m2/
-.gradle/
 # Logs and temp files
 *.log
 *.tmp
 *.swp
+# Editors
+.vscode/
+.idea/
 # Environment
 .env
 .env.local
 *.env.*
-# Editors
-.vscode/
-.idea/
-__pycache__/
-*.pyc
 ```
