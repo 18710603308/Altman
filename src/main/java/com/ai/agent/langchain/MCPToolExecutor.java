@@ -1,12 +1,10 @@
 package com.ai.agent.langchain;
 
 import com.ai.agent.service.MCPClientService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.langchain4j.agent.tool.Tool;
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.agent.tool.ToolExecutor;
-import dev.langchain4j.data.message.AiMessage;
-import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.output.Response;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -16,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MCPToolExecutor implements ToolExecutor {
 
     private final MCPClientService mcpClientService;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public MCPToolExecutor(MCPClientService mcpClientService) {
         this.mcpClientService = mcpClientService;
@@ -88,5 +87,25 @@ public class MCPToolExecutor implements ToolExecutor {
             }
         }
         return map;
+    }
+
+    private Map<String, String> parseArguments(String arguments) {
+        // 使用Jackson来解析JSON参数
+        try {
+            return objectMapper.readValue(arguments, Map.class);
+        } catch (Exception e) {
+            // 如果JSON解析失败，则回退到简单解析
+            Map<String, String> map = new ConcurrentHashMap<>();
+            // 移除大括号和引号
+            arguments = arguments.replaceAll("[{}\\\"]", "");
+            String[] pairs = arguments.split(",");
+            for (String pair : pairs) {
+                String[] keyValue = pair.split(":");
+                if (keyValue.length == 2) {
+                    map.put(keyValue[0].trim(), keyValue[1].trim());
+                }
+            }
+            return map;
+        }
     }
 }
