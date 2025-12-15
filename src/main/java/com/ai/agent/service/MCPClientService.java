@@ -2,7 +2,6 @@ package com.ai.agent.service;
 
 import com.ai.agent.model.MCPRequest;
 import com.ai.agent.model.MCPResponse;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -12,10 +11,8 @@ public class MCPClientService {
 
     private final WebClient webClient;
 
-    public MCPClientService(@Value("${mcp.server.url:http://localhost:8080/mcp}") String serverUrl) {
-        this.webClient = WebClient.builder()
-                .baseUrl(serverUrl)
-                .build();
+    public MCPClientService(WebClient webClient) {
+        this.webClient = webClient;
     }
 
     public String invokeGenerateText(String prompt) {

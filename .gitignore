@@ -4,58 +4,21 @@
 *.o
 *.obj
 *.out
-target/
-build/
-
 # Dependencies
+target/
 .m2/
 .gradle/
-node_modules/
-
 # Logs and temp files
 *.log
 *.tmp
 *.swp
-
-# Editors
-.vscode/
-.idea/
-
 # Environment
 .env
 .env.local
 *.env.*
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# System files
-.DS_Store
-Thumbs.db
-
-# Compressed files
-*.zip
-*.gz
-*.tar
-*.tgz
-*.bz2
-*.xz
-*.7z
-*.rar
-*.zst
-*.lz4
-*.lzh
-*.cab
-*.arj
-*.rpm
-*.deb
-*.Z
-*.lz
-*.lzo
-*.tar.gz
-*.tar.bz2
-*.tar.xz
-*.tar.zst
+# Editors
+.vscode/
+.idea/
+__pycache__/
+*.pyc
 ```

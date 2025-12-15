@@ -2,15 +2,11 @@ package com.ai.agent.service;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
-import dev.langchain4j.model.openai.OpenAiChatModel;
-import dev.langchain4j.model.openai.OpenAiEmbeddingModel;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.SystemMessage;
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.output.Response;
-import dev.langchain4j.model.output.TokenUsage;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,27 +15,12 @@ import java.util.List;
 @Service
 public class QwenService {
 
-    private ChatLanguageModel chatModel;
-    private EmbeddingModel embeddingModel;
+    private final ChatLanguageModel chatModel;
+    private final EmbeddingModel embeddingModel;
 
-    public QwenService(
-            @Value("${qwen.api.url:http://localhost:8000/v1}") String qwenApiUrl,
-            @Value("${qwen.api.key:EMPTY}") String apiKey,
-            @Value("${qwen.model.name:qwen3}") String modelName) {
-        
-        // Initialize chat model for Qwen3
-        this.chatModel = OpenAiChatModel.builder()
-                .baseUrl(qwenApiUrl)
-                .apiKey(apiKey)
-                .modelName(modelName)
-                .build();
-        
-        // Initialize embedding model for Qwen3
-        this.embeddingModel = OpenAiEmbeddingModel.builder()
-                .baseUrl(qwenApiUrl)
-                .apiKey(apiKey)
-                .modelName(modelName + "-embed") // Assuming embedding model name
-                .build();
+    public QwenService(ChatLanguageModel chatModel, EmbeddingModel embeddingModel) {
+        this.chatModel = chatModel;
+        this.embeddingModel = embeddingModel;
     }
 
     public String generateCompletion(String prompt, Integer maxTokens, Double temperature) {
