@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    com.ai.agent: DEBUG
+    org.springframework: INFO
+
+# Agent Configuration
+agent:
+  vllm:
+    endpoint: http://localhost:8000  # VLLM服务端点
+  baidu:
+    map:
+      api:
+        key: YOUR_BAIDU_MAP_API_KEY  # 替换为你的百度地图API密钥
+  model:
+    name: qwen3
+  mcp:
+    server:
+      port: 8080
